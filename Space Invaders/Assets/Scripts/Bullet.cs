@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-	// Use this for initialization
+    [SerializeField]
+    private int speed;
+
+    private Rigidbody2D rigidBody;
+
+
 	void Start () {
-		
+        speed = 30;
+        rigidBody = GetComponent<Rigidbody2D>();
+
+        rigidBody.velocity = Vector2.up * speed;    // Shoot bullet upwards
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+    // Destroy bullets after hitting wall
+    private void OnTriggerEnter2D(Collider2D col) {
+        if (col.tag == "Wall") {
+            Destroy(gameObject);
+        }
+    }
+
+
+    // Destroy bullets when no longer visible
+    private void OnBecameInvisible() {
+        Destroy(gameObject);
+    }
 }

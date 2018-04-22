@@ -5,9 +5,8 @@ public class ShipController : MonoBehaviour {
     [SerializeField]
     private int speed;
 
-    //Public GameObject bullet;
+    public GameObject bullet;
 
-    
 
     private void Start () {
         speed = 30;
@@ -23,6 +22,8 @@ public class ShipController : MonoBehaviour {
     private void Update() {
         if (Input.GetButtonDown("Jump")) {
             // Fire bullet
+            Instantiate(bullet, transform.position, Quaternion.identity);
+
             // Bullet Sound effect
         }
     }
