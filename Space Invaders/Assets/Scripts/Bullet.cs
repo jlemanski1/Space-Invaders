@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Bullet : MonoBehaviour {
 
@@ -9,6 +8,7 @@ public class Bullet : MonoBehaviour {
 
     private Rigidbody2D rigidBody;
 
+    public Sprite explodedAlienImg;
 
 	void Start () {
         speed = 30;
@@ -18,10 +18,26 @@ public class Bullet : MonoBehaviour {
 	}
 
 
-    // Destroy bullets after hitting wall
+    // Handles Collision
     private void OnTriggerEnter2D(Collider2D col) {
+        // Bullet hits wall
         if (col.tag == "Wall") {
             Destroy(gameObject);
+        }
+
+        // Bullet hits alien
+        if (col.tag == "Alien") {
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);    // Play sound
+            IncreaseTextUIScore();    // Increase score
+            col.GetComponent<SpriteRenderer>().sprite = explodedAlienImg;   // Switch to exploded sprite
+            Destroy(gameObject);    // Destroy bullet
+            DestroyObject(col.gameObject, 0.5f);    // Destroy Alien after 1/2 sec
+        }
+
+        // Bullet hits shield
+        if (col.tag == "Shield") {
+            Destroy(gameObject);              // Destroy bullet
+            DestroyObject(col.gameObject);    // Destroy Shield
         }
     }
 
@@ -30,4 +46,17 @@ public class Bullet : MonoBehaviour {
     private void OnBecameInvisible() {
         Destroy(gameObject);
     }
+
+    // Increases Player Score
+    private void IncreaseTextUIScore() {
+        var textUI = GameObject.Find("Score").GetComponent<Text>();
+
+        int score = int.Parse(textUI.text);
+
+        // Update score & text UI
+        score += 10;
+        textUI.text = score.ToString();
+    }
+
+
 }

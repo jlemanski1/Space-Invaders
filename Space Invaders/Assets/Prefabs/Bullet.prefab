@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  explodedAlienImg: {fileID: 21300012, guid: 8156ac88dd2c13b4a97215a48356c7da, type: 3}
 --- !u!212 &212230988535680442
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -25,6 +25,7 @@ public class ShipController : MonoBehaviour {
             Instantiate(bullet, transform.position, Quaternion.identity);
 
             // Bullet Sound effect
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.bulletFire);
         }
     }
 
