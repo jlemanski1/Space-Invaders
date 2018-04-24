@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour {
             Destroy(gameObject);
 
         soundEffectAudio = GetComponent<AudioSource>();
-        soundEffectAudio.volume = 0.1f;
+        soundEffectAudio.volume = 0.05f;
 	}
 	
     // Play sound effect
